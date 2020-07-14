@@ -34,15 +34,10 @@ int backup_file(char path[]){
 
 FILE *get_file_list(char path[], char pattern[]) {
     FILE *output;
-    char command[256]; /* https://issue.life/questions/19354870/bash-command-line-and-input-limit
-                        Ограничение на длину командной строки накладывается не оболочкой, 
-                        а операционной системой. Этот предел обычно находится в диапазоне сотен килобайт. 
-                        POSIX обозначает этот предел, ARG_MAXи в POSIX-совместимых системах вы можете 
-                        запросить его с помощью
-                        $ getconf ARG_MAX    # Get argument limit in bytes */
+    char command[256]; 
     
-    sprintf(command, "grep -rl %s %s 2>/dev/null", pattern, path);
-    
+    sprintf(command, "grep -rl '%s' %s 2>/dev/null", pattern, path);
+  
     /* Open the command's stdout as file for reading. */
     output = popen(command, "r");
     
@@ -60,13 +55,10 @@ int substitution(FILE *file_list, char pattern[], char replacement[]){
     int status;
     
     /* Read file from list. Modify file. Print status*/
-    while(fgets (path, sizeof(path), file_list) != NULL ) {
-        // char *strncpy(char *toHere, const char *fromHere, size_t n);
-        
+    while(fgets (path, sizeof(path), file_list) != NULL ) {       
         backup_file(path);
         sprintf(command, "sed -i 's/%s/%s/g' %s", pattern, replacement, path);
         status = system(command);
-        printf("%d - %s\n", status, path);
     }
     
     return 0;
