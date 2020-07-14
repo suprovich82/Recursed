@@ -9,13 +9,15 @@
 
 2. Define environment variables (below commands may be used)
 
-```export CFLAGS=`pkg-config --cflags gtk+-3.0`
+```
+export CFLAGS=`pkg-config --cflags gtk+-3.0`
 export LDFLAGS=`pkg-config --libs gtk+-3.0`
 ```
 
 3. Switch to the folder created by 'git clone' and run make
 
-```cd Recursed
+```
+cd Recursed
 make
 ```
 
