@@ -102,6 +102,9 @@ int gui(char *path, char *find, char *replace)
 
     gtk_main();
     
+    free(entry);
+    entry=NULL;
+    
     strcpy (path, pathG);
     strcpy (find, findG);
     strcpy (replace, replaceG);
