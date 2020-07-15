@@ -1,8 +1,8 @@
 #include <gtk/gtk.h>
-
 //---------------------------------------------------------------
 //                                GUI
 //---------------------------------------------------------------
+
 void closeApp(GtkWidget *window, gpointer data);
 
 int button_clicked(GtkWidget *button, GtkWidget **entry);

@@ -2,13 +2,26 @@
 #include <stdio.h>
 #include <string.h>
 
-char pathG[100], findG[100], replaceG[100];
+/// @pathG: global variable to pull out Path value entered in GUI
+char pathG[100];
+/// @findG: global variable to pull out Find value entered in GUI
+char findG[100];
+/// @replaceG: global variable to pull out Replace value entered in GUI  * 
+char replaceG[100];
 
+/// closeApp(): funcion to close graphical window. 
 void closeApp(GtkWidget *window, gpointer data)
 {
     gtk_main_quit();
 }
 
+/// button_clicked(): funcion that defines ations to be taken once 'OK' button clicked.
+///* @button: actual button that was clicked. Not used in function's body.
+///* @entry: array of Gtk entries to extract data from: 
+///         - entry[0]: path to file of folder where pattern need to be replaced.
+///         - entry[1]: pattern that need to be replaced (regular expression).
+///         - entry[2]: string to be substituted insted of pattern inclusions.
+///
 int button_clicked(GtkWidget *button, GtkWidget **entry)
 {
     strcpy (pathG, gtk_entry_get_text(GTK_ENTRY(entry[0])));
@@ -18,11 +31,16 @@ int button_clicked(GtkWidget *button, GtkWidget **entry)
     return 0;
 }
 
+/// gui(): function that implements GUI as text form to collect parameters from user.
+///        Parameters are pushed to upsream function via arguments.
+///
+///* @path, @find, @replace: variables declared in upstring function that are used to push entered data back.           
+///
 int gui(char *path, char *find, char *replace)
 {
     GtkWidget *window;
     GtkWidget *path_label, *find_label, *replace_label;
-    GtkWidget **entry; 
+    GtkWidget **entry; // array of gtk entries.
     GtkWidget *ok_button;
     GtkWidget *hbox1, *hbox2, *hbox3;
     GtkWidget *vbox;
@@ -43,9 +61,9 @@ int gui(char *path, char *find, char *replace)
     gtk_label_set_width_chars(GTK_LABEL(replace_label), 5);
 
     entry = malloc(3 * sizeof(GtkWidget));
-    entry[0] = gtk_entry_new(); // path_entry
-    entry[1] = gtk_entry_new(); //find_entry
-    entry[2] = gtk_entry_new(); //  replace_entry
+    entry[0] = gtk_entry_new(); 
+    entry[1] = gtk_entry_new(); 
+    entry[2] = gtk_entry_new(); 
     
     gtk_entry_set_width_chars(GTK_ENTRY(entry[0]), 55);
     gtk_entry_set_width_chars(GTK_ENTRY(entry[1]), 55);
